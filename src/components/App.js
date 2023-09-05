@@ -32,13 +32,24 @@ export class App extends Component {
     }
   }
 
-  addContact = object =>
+  addContact = object => {
+    const { contacts } = this.state;
+
+    const isExist = contacts.find(
+      contact =>
+        contact.name === object.name || contact.number === object.number
+    );
+    if (isExist) {
+      alert(`${object.name} or ${object.number} is already in contacts.`);
+      return;
+    }
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
         { id: nanoid(), name: object.name, number: object.number },
       ],
     }));
+  };
 
   onDelete = contactId => {
     this.setState(prevState => ({
@@ -75,7 +86,6 @@ export class App extends Component {
           contacts={this.getExistingContacts()}
           onDelete={this.onDelete}
         />
-
         <GlobalStyle />
       </Layout>
     );

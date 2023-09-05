@@ -14,15 +14,6 @@ export class ContactForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, number } = this.state;
-    
-    const isExist = this.props.contacts.find(
-      contact => contact.name === name || contact.number === number
-    );
-    if (isExist) {
-      alert(`${name} or ${number} is already in contacts.`);
-      return;
-    }
     this.props.addContact({ ...this.state });
     this.setState({
       name: '',
